@@ -1,0 +1,65 @@
+
+
+common:
+  img_topic: /avt_camera/left/image/compressed
+  lid_topic: /hesai/at128/points
+  imu_topic: /adi/adis16465/imu
+extrin_calib:
+  extrinsic_T: [0.042, -0.018, -0.063]
+  extrinsic_R: [0.99993817, -0.00770257, -0.00802099,
+                -0.0077132, -0.99996941, -0.00129509,
+                -0.00801077, 0.00135687, -0.99996699]
+  Rcl: [-0.00754689, -0.999959, -0.0049785,
+        -0.0265794, 0.00517747, -0.999633,
+         0.999618, -0.0074118, -0.0266174]
+  Pcl: [-0.218043, -0.00711787, -0.0580998]
+time_offset:
+  imu_time_offset: 0.0
+  img_time_offset: 0.0
+lidar_message_type: pointcloud2
+point_time_field: timestamp
+point_time_mode: absolute_seconds
+point_stride: 8
+preprocess:
+  blind: 0.8
+max_lidar_range: 80.0
+max_lidar_landmarks: 32
+max_visual_landmarks: 24
+association_distance: 0.4
+landmark_separation: 0.5
+range_noise_std: 0.04
+beam_noise_std: 0.002
+lidar_max_missed_frames: 3
+image_enabled: true
+image_compressed: true
+cam_fx: 1064.8950
+cam_fy: 1065.2546
+cam_cx: 801.4049
+cam_cy: 624.6878
+camera_distortion: [-0.1516, 0.0942, 0.000169, -0.000142]
+visual_range_prior: 8.0
+visual_range_prior_std: 6.0
+feature_min_distance: 30.0
+
+gyro_noise_density: 0.01
+accel_noise_density: 0.1
+gyro_bias_random_walk: 0.0001
+accel_bias_random_walk: 0.001
+acc_scale: 1.0
+initialization_duration: 0.5
+require_stationary_initialization: true
+initialization_gyro_std_max: 0.03
+initialization_accel_std_max: 0.5
+prior_attitude_std_deg: 5.0
+prior_velocity_std: 0.1
+prior_position_std: 0.001
+prior_gyro_bias_std: 0.01
+prior_accel_bias_std: 0.1
+prior_virtual_bias_std: 0.01
+prior_extrinsic_rotation_std_deg: 2.0
+prior_extrinsic_translation_std: 0.03
+max_prediction_step: 0.01
+max_imu_gap: 0.05
+reorder_delay: 0.25
+metric_nis_gate: 16.27
+bearing_nis_gate: 13.82

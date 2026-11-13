@@ -1,0 +1,16 @@
+<launch>
+  <arg name="sensor_config" default="$(find fast_livo)/config/i2nav_eqf.yaml" />
+  <arg name="camera_config" default="$(find fast_livo)/config/camera_i2nav.yaml" />
+  <arg name="validate_final_photo" default="false" />
+  <rosparam command="load" file="$(arg sensor_config)" />
+  <param name="backend/validate_final_photo" value="$(arg validate_final_photo)" type="bool" />
+  <param name="common/img_topic" value="/codex_baseline/image" />
+  <node pkg="fast_livo" type="baseline_sensor_adapter" name="i2nav_image_input" output="screen">
+    <param name="lidar_enabled" value="false" />
+    <param name="image_enabled" value="true" />
+    <param name="image_topic" value="/avt_camera/left/image/compressed" />
+  </node>
+  <node pkg="fast_livo" type="fastlivo_mapping" name="laserMapping" output="screen">
+    <rosparam command="load" file="$(arg camera_config)" />
+  </node>
+</launch>

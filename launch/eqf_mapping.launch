@@ -1,0 +1,8 @@
+<launch>
+  <arg name="config" default="$(find fast_livo)/config/eqf_street02.yaml"/>
+  <arg name="trajectory" default="/tmp/eqf_trajectory.tum"/>
+  <node pkg="fast_livo" type="fastlivo_eqf_mapping" name="fastlivo_eqf_mapping" output="screen">
+    <rosparam command="load" file="$(arg config)"/>
+    <param name="trajectory_path" value="$(arg trajectory)"/>
+  </node>
+</launch>

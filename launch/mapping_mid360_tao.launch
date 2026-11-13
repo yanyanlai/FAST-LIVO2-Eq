@@ -1,0 +1,36 @@
+<launch>
+  <arg name="sensor_config" />
+  <arg name="camera_config" />
+  <arg name="camera" default="false" />
+  <arg name="tao" default="true" />
+  <arg name="endpoint_covariance" default="true" />
+  <arg name="exact_imu_mean" default="true" />
+  <arg name="estimate_gravity" default="false" />
+  <arg name="gravity_direction_std_deg" default="1.0" />
+  <arg name="known_lidar_mount" default="false" />
+  <arg name="calibration_chain_prior" default="false" />
+  <arg name="lidar_rotation_std_deg" default="1.0" />
+  <arg name="lidar_input" default="/livox/lidar" />
+  <arg name="jpeg_input" default="/camera/right/jpeg" />
+  <rosparam command="load" file="$(arg sensor_config)" />
+  <param name="preprocess/lidar_type" value="1" type="int" />
+  <param name="common/lid_topic" value="/codex_baseline/livox" />
+  <param name="common/img_topic" value="/codex_baseline/image" />
+  <param name="common/img_en" value="$(eval 1 if arg('camera') else 0)" type="int" />
+  <param name="backend/tao_eqf" value="$(arg tao)" type="bool" />
+  <param name="backend/export_endpoint_covariance" value="$(arg endpoint_covariance)" type="bool" />
+  <param name="backend/exact_imu_mean" value="$(arg exact_imu_mean)" type="bool" />
+  <param name="backend/estimate_gravity" value="$(arg estimate_gravity)" type="bool" />
+  <param name="backend/gravity_direction_std_deg" value="$(arg gravity_direction_std_deg)" type="double" />
+  <param name="backend/known_lidar_mount" value="$(arg known_lidar_mount)" type="bool" />
+  <param name="backend/calibration_chain_prior" value="$(arg calibration_chain_prior)" type="bool" />
+  <param name="backend/lidar_rotation_std_deg" value="$(arg lidar_rotation_std_deg)" type="double" />
+  <node pkg="fast_livo" type="baseline_sensor_adapter" name="mid360_input" output="screen">
+    <param name="lidar_topic" value="$(arg lidar_input)" />
+    <param name="image_topic" value="$(arg jpeg_input)" />
+    <param name="image_enabled" value="$(arg camera)" type="bool" />
+  </node>
+  <node pkg="fast_livo" type="fastlivo_mapping" name="laserMapping" output="screen">
+    <rosparam command="load" file="$(arg camera_config)" />
+  </node>
+</launch>
